@@ -1,0 +1,26 @@
+---
+- hosts: all
+  connection: local
+
+  vars_files:
+    - default.config.yml
+
+  roles:
+    - role: uninstalls
+      tags: ['uninstalls']
+    - role: command-line
+      tags: ['command-line']
+    - role: homebrew
+      tags: ['homebrew']
+    - role: rbenv
+      tags: ['rbenv']
+    - role: gems
+      tags: ['gems']
+    - role: postgresql
+      tags: ['postgresql']
+    - role: phpunit
+      tags: ['phpunit']
+    - role: wp-cli
+      tags: ['wp-cli']
+    - role: github
+      tags: ['github']

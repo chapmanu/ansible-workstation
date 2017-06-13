@@ -1,0 +1,30 @@
+---
+homebrew_installed_packages:
+  - chromedriver
+  - redis
+  - elasticsearch@2.4
+  - rbenv
+  - phantomjs
+  - ssh-copy-id
+  - git
+  - wget
+  - php70
+  - mysql
+
+homebrew_taps:
+  - homebrew/dupes
+  - homebrew/versions
+  - homebrew/homebrew-php
+
+homebrew_cask_apps:
+  - java
+  - atom
+  - google-chrome
+
+clt_path: /Library/Developer/CommandLineTools
+
+chapman_apps:
+  - cascade-assets
+  - signage
+  - blogs
+  - inside
