@@ -12,19 +12,16 @@
     state: absent
   become: yes
 
-# needed for rbenv, warning given "It seems your ruby installation is missing psych (for YAML output)."
-# - gem:
-#     name: libyaml
-#     state: latest
-
 - name: Add rbenv to .bash_profile
-  shell: echo -e '\nif which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+  shell: echo '\nif which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
   notify:
-    - source bash_profile
+    - Source bash_profile
 
-- name: Install and use ruby version 2.2.0 using rbenv
+- name: Install and use ruby versions using rbenv
   shell: |
-    rbenv install 2.2.0
-    rbenv global 2.2.0
-    rbenv local 2.2.0
-    rbenv rehash
+    rbenv install 2.2.1
+    rbenv install 2.1.10
+    rbenv global 2.2.1
+    rbenv local 2.2.1
+  notify:
+    - Rehash rbenv

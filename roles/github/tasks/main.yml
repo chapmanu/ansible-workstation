@@ -12,12 +12,8 @@
   with_items: "{{ chapman_apps }}"
   when: item not in existing_directories
 
-# - name: Change permissions
-#   shell: chmod 777 /usr/local/bin
-#   become: yes
-
 - bundler:
     state: present
     chdir: "~/{{ item }}"
   with_items: "{{ chapman_apps }}"
-  become: yes
+  become: "{{ ansible_user_id }}"

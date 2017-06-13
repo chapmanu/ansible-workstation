@@ -5,3 +5,6 @@
 
   roles:
     - gems
+
+  handlers:
+    - roles/rbenv/handlers/main.yml

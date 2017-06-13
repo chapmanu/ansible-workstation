@@ -1,7 +1,7 @@
 ---
-- gem:
-    name: bundler
-    state: latest
-
-- name: Rehash rbenv
-  shell: rbenv rehash
+# Ansible gem module doesn't work for installing bundler gem for some reason
+- name: Install bundler
+  shell: gem install bundler
+  become_user: "{{ ansible_user_id }}"
+  notify:
+    - Rehash rbenv

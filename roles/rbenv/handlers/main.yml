@@ -1,4 +1,7 @@
 ---
-- name: source bash_profile
+- name: Source bash_profile
   shell: source ~/.bash_profile
   become_user: root
+
+- name: Rehash rbenv
+  shell: rbenv rehash
