@@ -1,0 +1,5 @@
+---
+- name: Cleanup
+  file:
+    path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    state: absent

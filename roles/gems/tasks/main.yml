@@ -1,0 +1,7 @@
+---
+- gem:
+    name: bundler
+    state: latest
+
+- name: Rehash rbenv
+  shell: rbenv rehash

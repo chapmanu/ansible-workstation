@@ -1,0 +1,7 @@
+---
+- name: Install PHPUnit
+  get_url:
+    url: https://phar.phpunit.de/phpunit-6.1.phar
+    dest: /usr/local/bin/phpunit
+    mode: u+rwx
+  become: yes

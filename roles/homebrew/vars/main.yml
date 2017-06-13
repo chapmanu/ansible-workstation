@@ -1,0 +1,17 @@
+---
+homebrew_repo: https://github.com/Homebrew/brew
+homebrew_prefix: /usr/local
+homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
+homebrew_brew_bin_path: /usr/local/bin
+
+php_remove_directories:
+  - ~/.pearrc
+  - ~/.pear
+  - /usr/local/lib/php
+
+# apm = Atom Package Manager
+# not for styling changes
+atom_packages:
+  - apm disable wrap-guide
+
+atom_styling_path:

@@ -1,0 +1,23 @@
+---
+- name: Get list of existing repositories.
+  command: ls ~/
+  register: existing_directories
+
+- name: Setup Chapman github repositories
+  git: 
+    #repo: "http://{{ githubuser }}:{{ githubpass }}@github.com/chapmanu/{{ item }}" 
+    repo: "http://github.com/chapmanu/{{ item }}"
+    dest: "~/{{ item }}"
+    accept_hostkey: yes
+  with_items: "{{ chapman_apps }}"
+  when: item not in existing_directories
+
+# - name: Change permissions
+#   shell: chmod 777 /usr/local/bin
+#   become: yes
+
+- bundler:
+    state: present
+    chdir: "~/{{ item }}"
+  with_items: "{{ chapman_apps }}"
+  become: yes

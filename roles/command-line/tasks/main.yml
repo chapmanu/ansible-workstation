@@ -1,0 +1,41 @@
+---
+- name: Check that the Command Line Tools path is present
+  stat:
+    path: '{{ clt_path }}'
+  register: clt
+
+- name: Is the C++ compiler useable?
+  command: g++ --version
+  register: compiler
+  ignore_errors: true
+  changed_when: false
+
+- name: Check the Command Line Tools package metadata
+  command: pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
+  register: pkg_info
+  ignore_errors: true
+  changed_when: false
+
+- name: Prepare to install Command Line Tools
+  file:
+    path: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    state: touch
+  when: pkg_info.rc != 0 or compiler.rc != 0 or not clt.stat.exists
+
+- name: Check for Command Line Tools in Software Update list
+  shell: >
+    softwareupdate -l |
+    grep -B 1 -E 'Command Line Tools' |
+    awk -F'*' '/^ +\*/ {print $2}' |
+    sed 's/^ *//' |
+    head -n1
+  register: su_list
+  when: pkg_info.rc != 0 or compiler.rc != 0 or not clt.stat.exists
+  changed_when: false
+  failed_when: su_list.rc != 0 or su_list.stdout|length == 0
+
+- name: Install Command Line Tools
+  command: softwareupdate -i '{{ su_list.stdout }}'
+  when: pkg_info.rc != 0 or compiler.rc != 0 or not clt.stat.exists
+  notify:
+    - Cleanup

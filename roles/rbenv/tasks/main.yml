@@ -1,0 +1,30 @@
+---
+- name: Create empty bash_profile if doesn't exist
+  copy:
+    content: ""
+    dest: ~/.bash_profile
+    force: no
+    mode: u+rwx
+
+- name: Remove ruby
+  file:
+    path: /usr/local/lib/ruby/*
+    state: absent
+  become: yes
+
+# needed for rbenv, warning given "It seems your ruby installation is missing psych (for YAML output)."
+# - gem:
+#     name: libyaml
+#     state: latest
+
+- name: Add rbenv to .bash_profile
+  shell: echo -e '\nif which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+  notify:
+    - source bash_profile
+
+- name: Install and use ruby version 2.2.0 using rbenv
+  shell: |
+    rbenv install 2.2.0
+    rbenv global 2.2.0
+    rbenv local 2.2.0
+    rbenv rehash
