@@ -12,8 +12,9 @@
   with_items: "{{ chapman_apps }}"
   when: item not in existing_directories
 
+# bundle cascade assets
+# others are bundled in individual roles
 - bundler:
     state: present
-    chdir: "~/{{ item }}"
-  with_items: "{{ chapman_apps }}"
+    chdir: ~/cascade-assets
   become: "{{ ansible_user_id }}"

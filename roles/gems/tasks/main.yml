@@ -1,11 +1,12 @@
 ---
 # Ansible gem module doesn't work for installing bundler gem for some reason
 - name: Install bundler
-  shell: |
-    gem install bundler
-    rbenv local 2.1.10
-    gem install bundler
-    rbenv local 2.2.1
+  shell: "{{ item }}"
+  with_items:
+    - gem install bundler
+    - rbenv local 2.1.10
+    - gem install bundler
+    - rbenv local 2.2.1
   become_user: "{{ ansible_user_id }}"
   notify:
     - Rehash rbenv

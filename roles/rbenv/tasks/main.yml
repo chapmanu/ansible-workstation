@@ -18,10 +18,11 @@
     - Source bash_profile
 
 - name: Install and use ruby versions using rbenv
-  shell: |
-    rbenv install 2.2.1
-    rbenv install 2.1.10
-    rbenv global 2.2.1
-    rbenv local 2.2.1
+  shell: "{{ item }}"
+  with_items:
+    - rbenv install 2.2.1
+    - rbenv install 2.1.10
+    - rbenv global 2.2.1
+    - rbenv local 2.2.1
   notify:
     - Rehash rbenv
