@@ -61,6 +61,7 @@ Complete the following manual steps after running the `blogs-setup` role.
 	
 	1. Run `ssh-copy-id chapmanblogs@dev-blogs.chapman.edu` and enter the password provided by a WIM team member.
 	2. Run `ssh-copy-id chapmanblogs@blogs.chapman.edu` and enter the password provided by a WIM team member.
+	3. Run `rake ensure_db_exists` to create the database if it doesn't exist and pull production data.
 
 ### Signage
 
