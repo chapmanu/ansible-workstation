@@ -1,0 +1,3 @@
+---
+# path to .env file from WIM team member
+env_path: ~/signage-env.txt
