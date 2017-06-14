@@ -9,9 +9,10 @@ php_remove_directories:
   - ~/.pear
   - /usr/local/lib/php
 
-# apm = Atom Package Manager
+# Atom packages to install, enable or disable
 # not for styling changes
 atom_packages:
   - apm disable wrap-guide
 
+# path to .less file containing custom styling for Atom text editor
 atom_styling_path:

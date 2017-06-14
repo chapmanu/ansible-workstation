@@ -91,10 +91,16 @@
     state: "{{ item.state | default('latest') }}"
   with_items: "{{ homebrew_installed_packages }}"
   notify:
-    - source bash_profile
+    - Source bash_profile
 
 - name: Upgrade all homebrew packages.
   homebrew: update_homebrew=yes upgrade_all=yes
+
+- name: Link correct elasticsearch version for Inside.
+  shell: "{{ item }}"
+  with_items:
+    - brew unlink elasticsearch
+    - brew link elasticsearch@2.4 --force
 
 - name: Get list of installed casks.
   command: brew cask list

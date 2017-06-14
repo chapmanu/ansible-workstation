@@ -1,0 +1,45 @@
+---
+# Inside
+# run bundle install
+- bundler:
+    chdir: ~/inside
+    state: present
+  become: "{{ ansible_user_id }}"
+
+# can only run once
+- name: Move config files.
+  command: "mv {{ item }} ~/inside/config/"
+  with_items: "{{ config_paths }}"
+  ignore_errors: true
+
+- name: Edit hosts file.
+  lineinfile:
+    dest: /etc/hosts
+    regexp: ""
+    line: "{{ item }}"
+    insertafter: EOF
+  with_items:
+    - 127.0.0.1  events.localchapman.edu
+    - 127.0.0.1  inside.localchapman.edu
+    - 127.0.0.1  search.localchapman.edu
+    - 127.0.0.1  social.localchapman.edu
+  become: yes
+  become_user: root
+
+- name: Make tmp directory.
+  file:
+    path: ~/inside/tmp/pids
+    state: directory
+    mode: u+rwx
+
+- name: Make temp empty sidekiq file.
+  copy:
+    content: ""
+    dest: ~/inside/tmp/pids/sidekiq.pid
+    force: no
+
+- name: Create database.
+  command: "{{ item }} chdir=~/inside"
+  with_items:
+    - rake db:create
+    - rake db:schema:load

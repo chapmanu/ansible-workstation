@@ -24,3 +24,9 @@
       tags: ['wp-cli']
     - role: github
       tags: ['github']
+    - role: signage-setup
+      tags: ['signage']
+    - role: blogs-setup
+      tags: ['blogs']
+    - role: inside-setup
+      tags: ['inside']

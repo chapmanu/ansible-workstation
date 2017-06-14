@@ -1,4 +1,14 @@
 ---
+- git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_email }}"
+
+- git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_name }}"
+
 - name: Get list of existing repositories.
   command: ls ~/
   register: existing_directories
