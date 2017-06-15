@@ -13,6 +13,7 @@
   command: ls ~/
   register: existing_directories
 
+# private repositories will prompt for Github user and password
 - name: Setup Chapman github repositories
   git: 
     #repo: "http://{{ githubuser }}:{{ githubpass }}@github.com/chapmanu/{{ item }}" 

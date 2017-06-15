@@ -1,9 +1,7 @@
 ---
 # run bundle install
-- bundler:
-    chdir: ~/signage
-    state: present
-  become: "{{ ansible_user_id }}"
+- name: Bundle install gems
+  shell: ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache chdir=~/signage
 
 # just creates empty env file
 - name: Create .env file
@@ -17,7 +15,7 @@
     path: "{{ env_path }}"
   register: env_file_path
 
-# set path to file in /roles/signage-setup/vars/main.yml
+# env_path is set in /roles/signage-setup/vars/main.yml
 - name: Move .env data.
   command: "mv {{ env_path }} ~/signage/.env"
   when: env_file_path.stat.exists

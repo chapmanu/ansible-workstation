@@ -3,7 +3,7 @@
 - name: Ensure Homebrew parent directory has correct permissions.
   file:
     path: "{{ homebrew_prefix }}"
-    owner: root
+    owner: "{{ ansible_user_id }}"
     group: admin
     state: directory
     mode: 0775
@@ -20,7 +20,7 @@
 - name: Ensure Homebrew directory exists.
   file:
     path: "{{ homebrew_install_path }}"
-    owner: root
+    owner: "{{ ansible_user_id }}"
     group: admin
     state: directory
     mode: 0775
@@ -41,7 +41,7 @@
   file:
     path: "{{ homebrew_brew_bin_path }}"
     state: directory
-    owner: root
+    owner: "{{ ansible_user_id }}"
     group: admin
     mode: 0775
   become: yes
@@ -50,8 +50,9 @@
   file:
     path: "{{ homebrew_install_path }}"
     state: directory
-    owner: root
+    owner: "{{ ansible_user_id }}"
     group: admin
+    recurse: yes
   become: yes
 
 # Place brew binary in proper location and complete setup.
@@ -87,8 +88,7 @@
 - name: Ensure configured homebrew packages are installed.
   homebrew:
     name: "{{ item.name | default(item) }}"
-    install_options: "{{ item.install_options | default(omit) }}"
-    state: "{{ item.state | default('latest') }}"
+    state: latest
   with_items: "{{ homebrew_installed_packages }}"
   notify:
     - Source bash_profile
@@ -101,6 +101,9 @@
   with_items:
     - brew unlink elasticsearch
     - brew link elasticsearch@2.4 --force
+    - rbenv rehash
+  notify:
+    - Source bash_profile
 
 - name: Get list of installed casks.
   command: brew cask list

@@ -1,18 +1,18 @@
 ---
 # postgresql is installed via homebrew seperately
 homebrew_installed_packages:
-  - chromedriver
-  - redis
-  - elasticsearch
-  - elasticsearch@2.4
-  - rbenv
-  - phantomjs
-  - ssh-copy-id
-  - git
-  - wget
-  - php70
-  - mysql
-  - graphicsmagick
+  - { name: chromedriver }
+  - { name: redis }
+  - { name: elasticsearch }
+  - { name: elasticsearch@2.4 }
+  - { name: rbenv }
+  - { name: phantomjs}
+  - { name: ssh-copy-id}
+  - { name: git}
+  - { name: wget}
+  - { name: php70}
+  - { name: mysql}
+  - { name: graphicsmagick}
 
 homebrew_taps:
   - homebrew/dupes
@@ -26,6 +26,7 @@ homebrew_cask_apps:
 
 clt_path: /Library/Developer/CommandLineTools
 
+#blogs and inside are private, prompts for GH user and pass
 chapman_apps:
   - cascade-assets
   - signage
