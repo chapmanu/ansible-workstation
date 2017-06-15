@@ -37,7 +37,7 @@ After running the Homebrew role, versions of installed packages can be checked u
 
 ## Variables
 
-The `default.config.yml` file has variables that must be customized before running the playbook. There are additional variables in `/roles/homebrew/vars/main.yml` that can be changed if you want to install Homebrew in a custom directory instead of the default.
+The `default.config.yml` file has variables that must be customized before running the playbook. There are additional optional variables in `/roles/homebrew/vars/main.yml` that can be changed if you want to install Homebrew in a custom directory instead of the default.
 
 For Atom, you can customize packages to enable, install and disable using the Atom Package Manager tool `apm`. Add commands in `default.config.yml` under `atom_packages`. If you wish to configure the Atom editor styles, create a CSS/Less file and give Ansible the path to the file in `default.config.yml` under `atom_styling_path`.
 

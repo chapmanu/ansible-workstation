@@ -1,7 +1,7 @@
 ---
 - name: Establish permissions on user directory.
   file:
-    path: "{{ home_directory }}"
+    path: "{{ ansible_env.HOME }}"
     mode: u+rwx
     state: directory
     recurse: yes
@@ -9,7 +9,7 @@
 
 - name: Establish permissions on root directory.
   file:
-    path: "{{ root_directory }}"
+    path: /usr/local
     mode: u+rwx
     state: directory
     recurse: yes

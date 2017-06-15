@@ -1,9 +1,4 @@
 ---
-# Role: uninstalls
-# set home directory
-home_directory: /Users/
-root_directory: /usr/local
-
 # Role: github
 # global git config settings
 git_email: "kziegler@chapman.edu"
