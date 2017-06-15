@@ -4,10 +4,10 @@ Playbooks to setup developer workstations and laptops.
 
 ## Installation
 
-1. Ensure Apple's command line tools are installed.
-2. Install Ansible.
-3. Clone this repository to your local drive.
-4. Run `ansible-playbook main.yml --ask-sudo-pass` to run all playbooks
+  1. Ensure Apple's command line tools are installed (`xcode-select --install`).
+  2. [Install Ansible](http://docs.ansible.com/intro_installation.html).
+  3. Clone this repository to your local drive.
+  4. Run `ansible-playbook main.yml --ask-sudo-pass` to run all playbooks
 
 ### Running Select Playbooks
 
@@ -49,7 +49,7 @@ The following locations contain variables that must be set manually:
 
 ## Manual Steps
 
-### Blogs
+### [Blogs](https://github.com/chapmanu/blogs)
 
 Complete the following manual steps after running the `blogs-setup` role.
 	
@@ -57,10 +57,10 @@ Complete the following manual steps after running the `blogs-setup` role.
 2. Run `ssh-copy-id chapmanblogs@blogs.chapman.edu` and enter the password provided by a WIM team member.
 3. Run `rake ensure_db_exists` to create the database if it doesn't exist and pull production data.
 
-### Signage
+### [Signage](https://github.com/chapmanu/signage)
 
 After running `signage-setup` role, run `bundle exec cap production db:clone` to clone production data.
 
-### Inside
+### [Inside](https://github.com/chapmanu/inside)
 
 After running `inside-setup` role, run `bundle exec cap production db:clone` to clone production data.
