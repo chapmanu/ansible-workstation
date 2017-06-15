@@ -1,4 +1,5 @@
 ---
+# Signage
 # bundle install gives error that is fixed by `bundle udpate rdoc` so ignore_errors=true
 - name: Signage | Run bundle install.
   shell: "{{ item }} chdir=~/signage"
@@ -16,12 +17,12 @@
 
 - name: Signage | Check for a .env file.
   stat:
-    path: "{{ env_path }}"
+    path: "{{ signage_env_path }}"
   register: env_file_path
 
-# env_path is set in /roles/signage-setup/vars/main.yml
+# signage_env_path is set in default.config.yml
 - name: Signage | Move .env file.
-  command: "mv {{ env_path }} ~/signage/.env"
+  command: "mv {{ signage_env_path }} ~/signage/.env"
   when: env_file_path.stat.exists
 
 - name: Signage | Get databases.

@@ -12,14 +12,14 @@
 - name: Blogs | Bundle install.
   command: bundle install chdir=~/blogs
 
-- name: Blogs | Check that config/database.yml file exists.
+- name: Blogs | Check that the specified database.yml file exists.
   stat:
-    path: "{{ config_path }}"
+    path: "{{ database_path }}"
   register: config_file_path
 
 - name: Blogs | Move config/database.yml
   copy:
-    src: "{{ config_path }}"
+    src: "{{ database_path }}"
     dest: ~/blogs/config/database.yml
     remote_src: true
   when: config_file_path.stat.exists

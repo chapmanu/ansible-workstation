@@ -16,6 +16,7 @@
   shell: ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache chdir=~/inside
 
 # can only run once
+# ignores errors in case of DNE because this step isn't technically necessary
 - name: Inside | Move config files.
   command: "mv {{ item }} ~/inside/config/"
   with_items: "{{ config_paths }}"
@@ -27,11 +28,7 @@
     regexp: ""
     line: "{{ item }}"
     insertafter: EOF
-  with_items:
-    - 127.0.0.1  events.localchapman.edu
-    - 127.0.0.1  inside.localchapman.edu
-    - 127.0.0.1  search.localchapman.edu
-    - 127.0.0.1  social.localchapman.edu
+  with_items: "{{ inside_domains }}"
   become: yes
   become_user: root
 
@@ -60,7 +57,7 @@
     - bundle exec rake db:create
     - bundle exec rake db:schema:load
 
-- name: Inside | Unlink and relink elasticsearch.
+- name: Inside | Unlink and relink elasticsearch versions.
   homebrew:
     name: "{{ item.name }}"
     state: "{{ item.state }}"

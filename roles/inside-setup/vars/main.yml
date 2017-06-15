@@ -1,7 +1,0 @@
----
-# paths to config files
-config_paths:
-  - ~/Downloads/files-inside/secrets.yml
-  - ~/Downloads/files-inside/database.yml
-  - ~/Downloads/files-inside/cloudinary.yml
-  - ~/Downloads/files-inside/newrelic.yml

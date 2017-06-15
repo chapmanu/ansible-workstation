@@ -7,16 +7,14 @@ Playbooks to setup developer workstations and laptops.
   1. Ensure Apple's command line tools are installed (`xcode-select --install`).
   2. [Install Ansible](http://docs.ansible.com/intro_installation.html).
   3. Clone this repository to your local drive.
-  4. Run `ansible-playbook main.yml --ask-sudo-pass` to run all playbooks
+  4. Edit the variables in `default.config.yml`. For details, see [Variables](#variables).
+  5. Run `ansible-playbook mac-desktop.yml --ask-sudo-pass` to run all playbooks.
 
 ### Running Select Playbooks
 
-To only run select tagged playbooks, use the following command. The `--tags` flag allows you to run any number of tagged playbooks by name. Tag names can be found under `roles:` in `main.yml`.
+To only run select tagged playbooks, use the following command. The `--tags` flag allows you to run any number of tagged playbooks by name. Tag names can be found under `roles:` in `mac-desktop.yml`.
 
-    ansible-playbook main.yml -i inventory -K --tags "homebrew,github"
-
-## Configuration
-For Atom, you can customize packages to enable, install and disable using the Atom Package Manager tool `apm`. Add commands in `roles/homebrew/vars/main.yml` under `atom_packages`. If you wish to configure the Atom editor styles, create a CSS/Less file and give Ansible the path to the file in `roles/homebrew/vars/main.yml` under `atom_styling_path`.
+    ansible-playbook mac-desktop.yml -i inventory -K --tags "rails"
 
 ## Versions
 
@@ -39,28 +37,12 @@ After running the Homebrew role, versions of installed packages can be checked u
 
 ## Variables
 
-The following locations contain variables that must be set manually:
+The `default.config.yml` file has variables that must be customized before running the playbook. There are additional variables in `/roles/homebrew/vars/main.yml` that can be changed if you want to install Homebrew in a custom directory instead of the default.
 
-- default.config.yml
-- /roles/blogs-setup/vars/main.yml
-- /roles/signage-setup/vars/main.yml
-- /roles/inside-setup/vars/main.yml
-- /roles/homebrew/vars/main.yml
+For Atom, you can customize packages to enable, install and disable using the Atom Package Manager tool `apm`. Add commands in `default.config.yml` under `atom_packages`. If you wish to configure the Atom editor styles, create a CSS/Less file and give Ansible the path to the file in `default.config.yml` under `atom_styling_path`.
 
 ## Manual Steps
 
-### [Blogs](https://github.com/chapmanu/blogs)
-
-Complete the following manual steps after running the `blogs-setup` role.
-	
-1. Run `ssh-copy-id chapmanblogs@dev-blogs.chapman.edu` and enter the password provided by a WIM team member.
-2. Run `ssh-copy-id chapmanblogs@blogs.chapman.edu` and enter the password provided by a WIM team member.
-3. Run `rake ensure_db_exists` to create the database if it doesn't exist and pull production data.
-
-### [Signage](https://github.com/chapmanu/signage)
-
-After running `signage-setup` role, run `bundle exec cap production db:clone` to clone production data.
-
-### [Inside](https://github.com/chapmanu/inside)
-
-After running `inside-setup` role, run `bundle exec cap production db:clone` to clone production data.
+- Although the `sudo` password is entered at the start of the script, there are some points when the script is running that it may pause and ask for the user's password again if it times out for some reason.
+- When running the `github` role, it will likely prompt the user for a Github username and password in order to clone the private repositories, `chapmanu/blogs` and `chapmanu/inside`.
+- All SSH keys being used must be manually copied to remote servers and any other services that use them.
