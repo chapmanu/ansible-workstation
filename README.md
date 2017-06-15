@@ -15,12 +15,6 @@ To only run select tagged playbooks, use the following command. The `--tags` fla
 
     ansible-playbook main.yml -i inventory -K --tags "homebrew,github"
 
-### Running Select Tasks
-
-To only run select tasks in a playbook, use the following command:
-
-	ansible-playbook [playbook.yml] --start-at-task="[task name]"
-
 ## Configuration
 For Atom, you can customize packages to enable, install and disable using the Atom Package Manager tool `apm`. Add commands in `roles/homebrew/vars/main.yml` under `atom_packages`. If you wish to configure the Atom editor styles, create a CSS/Less file and give Ansible the path to the file in `roles/homebrew/vars/main.yml` under `atom_styling_path`.
 
@@ -47,11 +41,11 @@ After running the Homebrew role, versions of installed packages can be checked u
 
 The following locations contain variables that must be set manually:
 
-	- default.config.yml
-	- /roles/blogs-setup/vars/main.yml
-	- /roles/signage-setup/vars/main.yml
-	- /roles/inside-setup/vars/main.yml
-	- /roles/homebrew/vars/main.yml
+- default.config.yml
+- /roles/blogs-setup/vars/main.yml
+- /roles/signage-setup/vars/main.yml
+- /roles/inside-setup/vars/main.yml
+- /roles/homebrew/vars/main.yml
 
 ## Manual Steps
 
