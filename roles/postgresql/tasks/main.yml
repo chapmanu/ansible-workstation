@@ -39,7 +39,7 @@
   become_user: "{{ ansible_user_id }}"
 
 - name: Start psql server
-  shell: pg_ctl -D /usr/local/var/postgres/data -l /usr/local/var/postgres/data/server.log start
+  command: pg_ctl -D /usr/local/var/postgres/data -l /usr/local/var/postgres/data/server.log start
   become: "{{ ansible_user_id }}"
 
 # install necessary dependency

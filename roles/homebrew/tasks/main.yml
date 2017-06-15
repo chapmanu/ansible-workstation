@@ -7,6 +7,7 @@
     group: admin
     state: directory
     mode: 0775
+    recurse: yes
   become: yes
 
 - stat:
@@ -44,6 +45,7 @@
     owner: "{{ ansible_user_id }}"
     group: admin
     mode: 0775
+    recurse: yes
   become: yes
 
 - name: Ensure proper ownership on homebrew_install_path subdirs.
@@ -52,6 +54,7 @@
     state: directory
     owner: "{{ ansible_user_id }}"
     group: admin
+    mode: u+rwx
     recurse: yes
   become: yes
 
@@ -122,6 +125,7 @@
 - name: Configure Atom packages.
   shell: "{{ item }}"
   with_items: "{{ atom_packages }}"
+  ignore_errors: true
 
 - name: Check for a style file.
   stat:
@@ -133,3 +137,4 @@
     src: "{{ atom_styling_path }}"
     dest: ~/.atom/styles.less
   when: style_path.stat.exists
+  ignore_errors: true

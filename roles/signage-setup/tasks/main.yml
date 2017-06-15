@@ -1,24 +1,28 @@
 ---
-# run bundle install
-- name: Bundle install gems
-  shell: ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache chdir=~/signage
+# bundle install gives error that is fixed by `bundle udpate rdoc` so ignore_errors=true
+- name: Signage | Run bundle install.
+  shell: "{{ item }} chdir=~/signage"
+  with_items:
+    - ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache 
+    - bundle update rdoc
+  ignore_errors: true
 
 # just creates empty env file
-- name: Create .env file
+- name: Signage | Create .env file
   file:
     path: ~/signage/.env
     state: touch
   become_user: "{{ ansible_user_id }}"
 
-- name: Check for an .env file.
+- name: Signage | Check for a .env file.
   stat:
     path: "{{ env_path }}"
   register: env_file_path
 
 # env_path is set in /roles/signage-setup/vars/main.yml
-- name: Move .env data.
+- name: Signage | Move .env file.
   command: "mv {{ env_path }} ~/signage/.env"
   when: env_file_path.stat.exists
 
-- name: Get databases.
+- name: Signage | Get databases.
   command: bundle exec rake db:setup chdir=~/signage

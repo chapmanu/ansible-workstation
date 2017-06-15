@@ -25,7 +25,5 @@
 
 # bundle cascade assets
 # others are bundled in individual roles
-- bundler:
-    state: present
-    chdir: ~/cascade-assets
-  become: "{{ ansible_user_id }}"
+- name: Cascade-Assets | Run bundle install.
+  command: bundle install chdir=~/cascade-assets

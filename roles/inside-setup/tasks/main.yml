@@ -1,22 +1,27 @@
 ---
 # Inside
-- name: Install bundler in local ruby version
-  shell: gem install bundler chdir=~/inside
-  become_user: "{{ ansible_user_id }}"
+- name: Inside | Establish permissions on gem folder.
+  file:
+    path: /Library/Ruby/Gems
+    state: directory
+    mode: u+rwx
+    recurse: yes
+  become: yes
 
-# run bundle install
-- bundler:
-    chdir: ~/inside
-    state: present
-  become: "{{ ansible_user_id }}"
+- name: Inside | Install bundler.
+  shell: gem install bundler -n /usr/local/bin chdir=~/inside
+  become: yes
+
+- name: Inside | Run bundle install.
+  shell: ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache chdir=~/inside
 
 # can only run once
-- name: Move config files.
+- name: Inside | Move config files.
   command: "mv {{ item }} ~/inside/config/"
   with_items: "{{ config_paths }}"
   ignore_errors: true
 
-- name: Edit hosts file.
+- name: Inside | Edit hosts file.
   lineinfile:
     dest: /etc/hosts
     regexp: ""
@@ -30,31 +35,32 @@
   become: yes
   become_user: root
 
-- name: Make tmp directory.
+- name: Inside | Make tmp directory.
   file:
     path: ~/inside/tmp/pids
     state: directory
     mode: u+rwx
 
-- name: Make temp empty sidekiq file.
+- name: Inside | Make temp empty sidekiq file.
   copy:
     content: ""
     dest: ~/inside/tmp/pids/sidekiq.pid
     force: no
 
-- name: Create empty db/backups folder
+- name: Inside | Create empty db/backups folder
   file:
     path: ~/inside/db/backups
     state: directory
     mode: u+rwx
 
-- name: Create database.
+- name: Inside | Create database.
   command: "{{ item }} chdir=~/inside"
   with_items:
-    - rake db:create
-    - rake db:schema:load
+    - rbenv local system
+    - bundle exec rake db:create
+    - bundle exec rake db:schema:load
 
-- name: Unlink and relink elasticsearch.
+- name: Inside | Unlink and relink elasticsearch.
   homebrew:
     name: "{{ item.name }}"
     state: "{{ item.state }}"

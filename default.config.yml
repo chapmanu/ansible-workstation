@@ -1,4 +1,7 @@
 ---
+home_directory: /Users/testuser2
+root_directory: /usr/local
+
 # postgresql is installed via homebrew seperately
 homebrew_installed_packages:
   - { name: chromedriver }
@@ -26,12 +29,13 @@ homebrew_cask_apps:
 
 clt_path: /Library/Developer/CommandLineTools
 
-#blogs and inside are private, prompts for GH user and pass
+# blogs and inside are private, prompts for GH user and pass
 chapman_apps:
   - cascade-assets
   - signage
   - blogs
   - inside
 
+# global git config settings
 git_email: "kziegler@chapman.edu"
 git_name: "Kayla Ziegler"

@@ -1,16 +1,23 @@
 ---
-# run bundle install
-- bundler:
-    chdir: ~/blogs
-    state: present
-  become: "{{ ansible_user_id }}"
+# Blogs
+- name: Blogs | Establish permissions on gem folder.
+  file:
+    path: /Library/Ruby/Gems
+    state: directory
+    mode: u+rwx
+    recurse: yes
+  become: yes
 
-- name: Check that config/database.yml file exists.
+# run bundle install
+- name: Blogs | Bundle install.
+  command: bundle install chdir=~/blogs
+
+- name: Blogs | Check that config/database.yml file exists.
   stat:
     path: "{{ config_path }}"
   register: config_file_path
 
-- name: Move config/database.yml
+- name: Blogs | Move config/database.yml
   copy:
     src: "{{ config_path }}"
     dest: ~/blogs/config/database.yml

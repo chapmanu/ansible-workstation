@@ -1,4 +1,12 @@
 ---
+- name: Gems | Change permissions.
+  file:
+    path: /Library/Ruby/Gems
+    state: directory
+    mode: u+rwx
+    recurse: yes
+  become: yes
+
 - gem:
     name: bundler
     build_flags: --install-dir=/usr/local/bin
