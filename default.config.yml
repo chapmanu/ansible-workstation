@@ -6,13 +6,13 @@ homebrew_installed_packages:
   - { name: elasticsearch }
   - { name: elasticsearch@2.4 }
   - { name: rbenv }
-  - { name: phantomjs}
-  - { name: ssh-copy-id}
-  - { name: git}
-  - { name: wget}
-  - { name: php70}
-  - { name: mysql}
-  - { name: graphicsmagick}
+  - { name: phantomjs }
+  - { name: ssh-copy-id }
+  - { name: git }
+  - { name: wget }
+  - { name: php70 }
+  - { name: mysql }
+  - { name: graphicsmagick }
 
 homebrew_taps:
   - homebrew/dupes

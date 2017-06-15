@@ -53,3 +53,12 @@
   with_items:
     - rake db:create
     - rake db:schema:load
+
+- name: Unlink and relink elasticsearch.
+  homebrew:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    install_options: "{{ item.install_options | default(omit) }}"
+  with_items:
+    - { name: elasticsearch, state: unlinked}
+    - { name: elasticsearch@2.4, state: linked, install_options: force}

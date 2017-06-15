@@ -4,10 +4,10 @@ Playbooks to setup developer workstations and laptops.
 
 ## Installation
 
-  1. Ensure Apple's command line tools are installed.
-  2. Install Ansible.
-  3. Clone this repository to your local drive.
-  4. Run `ansible-playbook main.yml --ask-sudo-pass` to run all playbooks
+1. Ensure Apple's command line tools are installed.
+2. Install Ansible.
+3. Clone this repository to your local drive.
+4. Run `ansible-playbook main.yml --ask-sudo-pass` to run all playbooks
 
 ### Running Select Playbooks
 
@@ -28,20 +28,20 @@ For Atom, you can customize packages to enable, install and disable using the At
 
 After running the Homebrew role, versions of installed packages can be checked using `brew info [package name]`. For homebrew casks, the command is `brew cask info [cask name]`.
 
-	- Homebrew 1.2.3
-	- Elasticsearch 2.4
-	- PHP 7.0
-	- Ruby 2.1.10, 2.2.1
-	- Rbenv 1.1.0
-	- Redis 3.2.9
-	- PostgreSQL 9.6.3
-	- MySQL 5.7.18
-	- PHPUnit 6.1.4
-	- PhantomJS 2.1.1
-	- Chromedriver 2.30
-	- GraphicsMagick 1.3
-	- Atom 1.17
-	- Java 8
+- Homebrew 1.2.3
+- Elasticsearch 2.4
+- PHP 7.0
+- Ruby 2.1.10, 2.2.1
+- Rbenv 1.1.0
+- Redis 3.2.9
+- PostgreSQL 9.6.3
+- MySQL 5.7.18
+- PHPUnit 6.1.4
+- PhantomJS 2.1.1
+- Chromedriver 2.30
+- GraphicsMagick 1.3
+- Atom 1.17
+- Java 8
 
 ## Variables
 
@@ -59,9 +59,9 @@ The following locations contain variables that must be set manually:
 
 Complete the following manual steps after running the `blogs-setup` role.
 	
-	1. Run `ssh-copy-id chapmanblogs@dev-blogs.chapman.edu` and enter the password provided by a WIM team member.
-	2. Run `ssh-copy-id chapmanblogs@blogs.chapman.edu` and enter the password provided by a WIM team member.
-	3. Run `rake ensure_db_exists` to create the database if it doesn't exist and pull production data.
+1. Run `ssh-copy-id chapmanblogs@dev-blogs.chapman.edu` and enter the password provided by a WIM team member.
+2. Run `ssh-copy-id chapmanblogs@blogs.chapman.edu` and enter the password provided by a WIM team member.
+3. Run `rake ensure_db_exists` to create the database if it doesn't exist and pull production data.
 
 ### Signage
 
