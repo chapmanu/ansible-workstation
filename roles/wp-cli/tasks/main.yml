@@ -1,0 +1,10 @@
+---
+- name: Install WP CLI.
+  get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: /usr/local/bin/wp
+    mode: u+rwx
+  become: yes
+
+- name: Update WP CLI.
+  shell: wp cli update

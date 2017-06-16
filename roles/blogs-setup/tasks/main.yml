@@ -1,0 +1,25 @@
+---
+# Blogs
+- name: Blogs | Establish permissions on gem folder.
+  file:
+    path: /Library/Ruby/Gems
+    state: directory
+    mode: u+rwx
+    recurse: yes
+  become: yes
+
+# run bundle install
+- name: Blogs | Bundle install.
+  command: bundle install chdir=~/blogs
+
+- name: Blogs | Check that the specified database.yml file exists.
+  stat:
+    path: "{{ database_path }}"
+  register: config_file_path
+
+- name: Blogs | Move config/database.yml
+  copy:
+    src: "{{ database_path }}"
+    dest: ~/blogs/config/database.yml
+    remote_src: true
+  when: config_file_path.stat.exists

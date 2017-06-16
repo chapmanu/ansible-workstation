@@ -1,0 +1,28 @@
+---
+- name: Create empty bash_profile if doesn't exist
+  copy:
+    content: ""
+    dest: ~/.bash_profile
+    force: no
+    mode: u+rwx
+
+- name: Remove ruby
+  file:
+    path: /usr/local/lib/ruby/*
+    state: absent
+  become: yes
+
+- name: Add rbenv to .bash_profile
+  shell: echo '\nif which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+  notify:
+    - Source bash_profile
+
+- name: Install and use ruby versions using rbenv
+  shell: "{{ item }}"
+  with_items:
+    - rbenv install 2.2.1
+    - rbenv install 2.1.10
+    - rbenv global 2.2.1
+    - rbenv local 2.2.1
+  notify:
+    - Rehash rbenv

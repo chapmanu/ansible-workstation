@@ -1,0 +1,7 @@
+---
+uninstall_homebrew_folders:
+  - /usr/local/Homebrew
+  - /usr/local/Caskroom
+  - /usr/local/bin/brew
+  - /usr/local/Cellar
+  - /usr/local/var/homebrew

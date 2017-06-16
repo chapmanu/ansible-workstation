@@ -1,0 +1,67 @@
+---
+# Inside
+- name: Inside | Establish permissions on gem folder.
+  file:
+    path: /Library/Ruby/Gems
+    state: directory
+    mode: u+rwx
+    recurse: yes
+  become: yes
+
+- name: Inside | Install bundler.
+  shell: gem install bundler -n /usr/local/bin chdir=~/inside
+  become: yes
+
+- name: Inside | Run bundle install.
+  shell: ARCHFLAGS="-arch x86_64" bundle install --path vendor/cache chdir=~/inside
+
+# can only run once
+# ignores errors in case of DNE because this step isn't technically necessary
+- name: Inside | Move config files.
+  command: "mv {{ item }} ~/inside/config/"
+  with_items: "{{ config_paths }}"
+  ignore_errors: true
+
+- name: Inside | Edit hosts file.
+  lineinfile:
+    dest: /etc/hosts
+    regexp: ""
+    line: "{{ item }}"
+    insertafter: EOF
+  with_items: "{{ inside_domains }}"
+  become: yes
+  become_user: root
+
+- name: Inside | Make tmp directory.
+  file:
+    path: ~/inside/tmp/pids
+    state: directory
+    mode: u+rwx
+
+- name: Inside | Make temp empty sidekiq file.
+  copy:
+    content: ""
+    dest: ~/inside/tmp/pids/sidekiq.pid
+    force: no
+
+- name: Inside | Create empty db/backups folder
+  file:
+    path: ~/inside/db/backups
+    state: directory
+    mode: u+rwx
+
+- name: Inside | Create database.
+  command: "{{ item }} chdir=~/inside"
+  with_items:
+    - rbenv local system
+    - bundle exec rake db:create
+    - bundle exec rake db:schema:load
+
+- name: Inside | Unlink and relink elasticsearch versions.
+  homebrew:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    install_options: "{{ item.install_options | default(omit) }}"
+  with_items:
+    - { name: elasticsearch, state: unlinked}
+    - { name: elasticsearch@2.4, state: linked, install_options: force}

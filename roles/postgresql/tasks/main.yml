@@ -1,0 +1,58 @@
+---
+# brew rm postgresql --force
+- name: Uninstall old versions of Postgres using HB
+  homebrew:
+    name: postgresql
+    install_options: force
+    state: absent
+
+# brew install postgresql
+- name: Install postgresql
+  homebrew:
+    name: postgresql
+    state: latest
+
+- name: Check if psql path exists
+  stat: path=/usr/local/var/postgres
+  register: check_path
+
+- name: Remove psql directory if exists
+  file:
+    path: /usr/local/var/postgres
+    state: absent
+  when: check_path.stat.exists == true
+  become: yes
+
+# sudo mkdir /usr/local/var/postgres
+- name: Create psql directory
+  file: 
+    path: /usr/local/var/postgres
+    state: directory
+    owner: root
+    group: admin
+    mode: 0775
+  become: yes
+
+# initdb /usr/local/var/postgres/data
+- name: Initialize db
+  shell: initdb /usr/local/var/postgres/data
+  become_user: "{{ ansible_user_id }}"
+
+- name: Start psql server
+  command: pg_ctl -D /usr/local/var/postgres/data -l /usr/local/var/postgres/data/server.log start
+  become: "{{ ansible_user_id }}"
+
+# install necessary dependency
+- pip:
+    name: psycopg2
+  become: yes
+
+# TODO: make dis work pls
+# createdb $(whoami)
+# - postgresql_db:
+#     name: "{{ ansible_user_id }}"
+#     owner: "{{ ansible_user_id }}"
+
+- name: create db
+  shell: createdb $(whoami)
+  become: "{{ ansible_user_id }}"

@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  connection: local
+  any_errors_fatal: true
+
+  roles:
+    - gems
+
+  handlers:
+    - roles/rbenv/handlers/main.yml

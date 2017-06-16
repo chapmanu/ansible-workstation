@@ -1,0 +1,36 @@
+---
+- hosts: all
+  connection: local
+
+  vars_files:
+    - default.config.yml
+
+  # base: uninstalls, command-line, homebrew
+  # rails: rbenv, gems, postgresql
+  # php: phpunit, wp-cli
+  # apps: github, signage, blogs, inside
+  roles:
+    - role: uninstalls
+      tags: ['base','uninstalls']
+    - role: command-line
+      tags: ['base','command-line']
+    - role: homebrew
+      tags: ['base','homebrew']
+    - role: rbenv
+      tags: ['rails','rbenv']
+    - role: gems
+      tags: ['rails','gems']
+    - role: postgresql
+      tags: ['rails','postgresql']
+    - role: phpunit
+      tags: ['php','phpunit']
+    - role: wp-cli
+      tags: ['php','wp-cli']
+    # - role: github
+    #   tags: ['apps','github']
+    # - role: signage-setup
+    #   tags: ['apps','signage']
+    # - role: blogs-setup
+    #   tags: ['apps','blogs']
+    # - role: inside-setup
+    #   tags: ['apps','inside']

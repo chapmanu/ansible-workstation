@@ -1,0 +1,52 @@
+---
+- name: Establish permissions on user directory.
+  file:
+    path: "{{ ansible_env.HOME }}"
+    mode: u+rwx
+    state: directory
+    recurse: yes
+  become: yes
+
+- name: Establish permissions on root directory.
+  file:
+    path: /usr/local
+    mode: u+rwx
+    state: directory
+    recurse: yes
+  become: yes
+
+- name: Establish permissions on ansible-playbook directory.
+  file:
+    path: ~/ansible-playbook
+    state: directory
+    mode: u+rwx
+  become: yes
+
+- name: Uninstall existing Homebrew.
+  get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/master/uninstall
+    dest: ~/ansible-playbook
+    mode: u+rwx
+    force: yes
+  become: yes
+
+- name: Run uninstall script.
+  shell: ./uninstall --force
+  become: yes
+  become_user: root
+  ignore_errors: yes
+
+# uninstall_homebrew_folders var set in /roles/uninstalls/vars/main.yml
+- name: Remove Homebrew folders.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ uninstall_homebrew_folders }}"
+  become: yes
+
+# clt_path var set in /default.config.yml
+- name: Remove existing Command Line Tools installation
+  file:
+    path: '{{ clt_path }}'
+    state: absent
+  become: yes

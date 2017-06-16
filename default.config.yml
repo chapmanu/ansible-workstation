@@ -1,0 +1,70 @@
+---
+# Role: github
+# global git config settings
+git_email: "kziegler@chapman.edu"
+git_name: "Kayla Ziegler"
+
+# blogs and inside are private, prompts for GH user and pass
+chapman_apps:
+  - cascade-assets
+  - signage
+  - blogs
+  - inside
+
+# Role: homebrew
+# postgresql is installed via homebrew seperately
+homebrew_installed_packages:
+  - { name: chromedriver }
+  - { name: redis }
+  - { name: elasticsearch }
+  - { name: elasticsearch@2.4 }
+  - { name: rbenv }
+  - { name: phantomjs }
+  - { name: ssh-copy-id }
+  - { name: git }
+  - { name: wget }
+  - { name: php70 }
+  - { name: mysql }
+  - { name: graphicsmagick }
+
+homebrew_taps:
+  - homebrew/dupes
+  - homebrew/versions
+  - homebrew/homebrew-php
+
+homebrew_cask_apps:
+  - java
+  - atom
+  - google-chrome
+
+# List of Atom packages to install, enable and disable
+# Usage: apm [enable/disable/install] [package-name]
+atom_packages: []
+
+# path to .less file containing custom styling for Atom text editor
+atom_styling_path: ""
+
+# Role: command-line
+clt_path: /Library/Developer/CommandLineTools
+
+# Role: signage-setup
+# direct path to .env file from WIM team member
+signage_env_path: ~/signage-env.txt
+
+# Role: inside-setup
+# direct paths to config files
+config_paths:
+  - ~/secrets.yml
+  - ~/database.yml
+  - ~/cloudinary.yml
+  - ~/newrelic.yml
+
+inside_domains:
+  - 127.0.0.1  events.localchapman.edu
+  - 127.0.0.1  inside.localchapman.edu
+  - 127.0.0.1  search.localchapman.edu
+  - 127.0.0.1  social.localchapman.edu
+
+# Role: blogs-setup
+# direct path to database.yml from WIM team member
+database_path: ~/database.yml
