@@ -1,8 +1,8 @@
 ---
 # Role: github
 # global git config settings
-git_email: "kziegler@chapman.edu"
-git_name: "Kayla Ziegler"
+git_email: "TBA"
+git_name: "TBA"
 
 # blogs and inside are private, prompts for GH user and pass
 chapman_apps:
@@ -68,3 +68,7 @@ inside_domains:
 # Role: blogs-setup
 # direct path to database.yml from WIM team member
 database_path: ~/database.yml
+
+# Role: phpunit
+# direct path to installation of PHPUnit 4.8
+phpunit_download_url: https://phar.phpunit.de/phpunit-4.8.phar

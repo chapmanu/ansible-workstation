@@ -41,6 +41,12 @@ The `default.config.yml` file has variables that must be customized before runni
 
 For Atom, you can customize packages to enable, install and disable using the Atom Package Manager tool `apm`. Add commands in `default.config.yml` under `atom_packages`. If you wish to configure the Atom editor styles, create a CSS/Less file and give Ansible the path to the file in `default.config.yml` under `atom_styling_path`.
 
+## Laptops
+
+- Make sure that you have the proper permissions for your user in place beforehand.
+- The laptops are only able to successfully setup the environment on PHPUnit 4.8. Until we update our code in blogs to be compatible with the newer versions we're stuck with this.
+- If you receive an error regarding `rbenv rehash` then simply running the command manually and continuing from there solves the issue, but it doesn't happen consistently. [See this issue](https://github.com/chapmanu/ansible-workstation/issues/7).
+
 ## Manual Steps
 
 - Although the `sudo` password is entered at the start of the script, there are some points when the script is running that it may pause and ask for the user's password again if it times out for some reason.
