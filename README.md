@@ -44,8 +44,8 @@ For Atom, you can customize packages to enable, install and disable using the At
 ## Laptops
 
 - Make sure that you have the proper permissions for your user in place beforehand.
-- The laptops are only able to successfully setup the environment by changing PHPUnit to version 4.8 on [this line](https://github.com/chapmanu/ansible-workstation/blob/master/roles/phpunit/tasks/main.yml#L4).
-- If you receive an error regarding `rbenv rehash` then simply running the command manually and continuing from there solves the issue, but it doesn't happen consistently.
+- The laptops are only able to successfully setup the environment on PHPUnit 4.8. Until we update our code in blogs to be compatible with the newer versions we're stuck with this.
+- If you receive an error regarding `rbenv rehash` then simply running the command manually and continuing from there solves the issue, but it doesn't happen consistently. [See this issue](https://github.com/chapmanu/ansible-workstation/issues/7).
 
 ## Manual Steps
 
