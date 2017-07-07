@@ -1,8 +1,8 @@
 ---
 # Role: github
 # global git config settings
-git_email: "kziegler@chapman.edu"
-git_name: "Kayla Ziegler"
+git_email: " "
+git_name: " "
 
 # blogs and inside are private, prompts for GH user and pass
 chapman_apps:
