@@ -68,3 +68,7 @@ inside_domains:
 # Role: blogs-setup
 # direct path to database.yml from WIM team member
 database_path: ~/database.yml
+
+# Role: phpunit
+# direct path to installation of PHPUnit 4.8
+phpunit_download_url: https://phar.phpunit.de/phpunit-4.8.phar

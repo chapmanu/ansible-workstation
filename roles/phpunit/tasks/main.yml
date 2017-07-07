@@ -2,7 +2,7 @@
 - name: Install PHPUnit
   get_url:
     # Currently using version 4.8 due to incompatability with newer versions in our code.
-    url: https://phar.phpunit.de/phpunit-4.8.phar
+    url: "{{ phpunit_download_url }}"
     dest: /usr/local/bin/phpunit
     mode: u+rwx
   become: yes
